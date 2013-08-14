@@ -1,3 +1,5 @@
+using MessageBoard.Services;
+
 [assembly: WebActivator.PreApplicationStartMethod(typeof(MessageBoard.App_Start.NinjectWebCommon), "Start")]
 [assembly: WebActivator.ApplicationShutdownMethodAttribute(typeof(MessageBoard.App_Start.NinjectWebCommon), "Stop")]
 
@@ -53,6 +55,11 @@ namespace MessageBoard.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
+#if DEBUG
+            kernel.Bind<IMailService>().To<MockMailService>().InRequestScope();
+#else
+            kernel.Bind<IMailService>().To<MailService>().InRequestScope();
+#endif
         }        
     }
 }

@@ -10,6 +10,12 @@ namespace MessageBoard.Controllers
 {
     public class HomeController : Controller
     {
+        private IMailService _mail;
+        public HomeController(IMailService mail)
+        {
+            _mail = mail;
+        }
+
         public ActionResult Index()
         {
             ViewBag.Message = "Modify this template to jump-start your ASP.NET MVC application.";
@@ -36,9 +42,8 @@ namespace MessageBoard.Controllers
         {
             var msg = String.Format("Comment From: {1}{0}Email:{2}{0}Website:{3}{0}Comment:{4}{0}", Environment.NewLine,
                                     contact.Name, contact.Email, contact.Website, contact.Comment);
-            var svc = new MailService();
 
-            if (svc.SendMail("noreply@yourdomain.com", "foo@yourdomain.com", "Website Contact", msg))
+            if (_mail.SendMail("noreply@yourdomain.com", "foo@yourdomain.com", "Website Contact", msg))
             {
                 ViewBag.MailSent = true;
             }
