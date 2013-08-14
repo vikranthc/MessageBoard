@@ -1,3 +1,4 @@
+using MessageBoard.Data;
 using MessageBoard.Services;
 
 [assembly: WebActivator.PreApplicationStartMethod(typeof(MessageBoard.App_Start.NinjectWebCommon), "Start")]
@@ -60,6 +61,8 @@ namespace MessageBoard.App_Start
 #else
             kernel.Bind<IMailService>().To<MailService>().InRequestScope();
 #endif
+            kernel.Bind<MessageBoardContext>().To<MessageBoardContext>().InRequestScope();
+            kernel.Bind<IMessageBoardRepository>().To<MessageBoardRepository>().InRequestScope();
         }        
     }
 }
