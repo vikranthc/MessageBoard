@@ -12,13 +12,19 @@ namespace MessageBoard
     {
         public static void Register(HttpConfiguration config)
         {
-            var jsonFormatter = config.Formatters.OfType<JsonMediaTypeFormatter>().First();
-            jsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            //var jsonFormatter = config.Formatters.OfType<JsonMediaTypeFormatter>().First();
+            //jsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+
+            config.Routes.MapHttpRoute(
+                name: "RepliesRoute",
+                routeTemplate: "api/v1/topics/{topicId}/replies/{id}",
+                defaults: new { controller = "Replies", id = RouteParameter.Optional }
+                );
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional }
+                routeTemplate: "api/v1/topics/{id}",
+                defaults: new { controller = "Topics", id = RouteParameter.Optional }
             );
 
             // Uncomment the following line of code to enable query support for actions with an IQueryable or IQueryable<T> return type.

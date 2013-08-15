@@ -26,7 +26,7 @@ namespace MessageBoard.Data
                         Title = "I love MVC",
                         Created = DateTime.Now,
                         Body = "I love ASP.NET MVC and I want everyone to know",
-                        Replied = new List<Reply>()
+                        Replies = new List<Reply>()
                             {
                                 new Reply()
                                     {
@@ -46,7 +46,7 @@ namespace MessageBoard.Data
                     Title = "I love Ruby",
                     Created = DateTime.Now,
                     Body = "I love Ruby and I want everyone to know",
-                    Replied = new List<Reply>()
+                    Replies = new List<Reply>()
                             {
                                 new Reply()
                                     {

@@ -13,6 +13,6 @@ namespace MessageBoard.Data
         public DateTime Created { get; set; }
         public bool Flagged { get; set; }
 
-        public ICollection<Reply> Replied { get; set; } 
+        public ICollection<Reply> Replies { get; set; } 
     }
 }

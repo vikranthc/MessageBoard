@@ -17,14 +17,29 @@ namespace MessageBoard.Controllers
             _repo = repo;
         }
 
-        public IEnumerable<Topic> Get()
+        public IEnumerable<Topic> Get(bool includeReplies = false)
         {
-            var topics = _repo.GetTopics().OrderByDescending(c => c.Created).Take(25);
-            return topics;
+            IQueryable<Topic> results;
+
+            if (includeReplies)
+            {
+                results = _repo.GetTopicsIncludingReplies().OrderByDescending(c => c.Created).Take(25);
+            }
+            else
+            {
+                results = _repo.GetTopics().OrderByDescending(c => c.Created).Take(25);
+            }
+
+            return results;
         }
 
         public HttpResponseMessage Post([FromBody]Topic newTopic)
         {
+            if (newTopic.Created == default(DateTime))
+            {
+                newTopic.Created = DateTime.UtcNow;
+            }
+
             if (_repo.AddTopic(newTopic) && _repo.Save())
             {
                 return Request.CreateResponse(HttpStatusCode.Created, newTopic);

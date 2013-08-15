@@ -18,6 +18,11 @@ namespace MessageBoard.Data
             return _ctx.Topics;
         }
 
+        public IQueryable<Topic> GetTopicsIncludingReplies()
+        {
+            return _ctx.Topics.Include("Replies");
+        }
+
         public IQueryable<Reply> GetRepliesByTopic(int topicId)
         {
             return _ctx.Replies.Where(c => c.TopicId == topicId);
@@ -46,6 +51,20 @@ namespace MessageBoard.Data
             catch (Exception)
             {
                 // TODO log this error
+                return false;
+            }
+        }
+
+        public bool AddReply(Reply reply)
+        {
+            try
+            {
+                _ctx.Replies.Add(reply);
+                return true;
+            }
+            catch (Exception)
+            {
+                // TODO Log this error
                 return false;
             }
         }
