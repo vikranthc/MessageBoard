@@ -1,5 +1,7 @@
+using System.Web.Http;
 using MessageBoard.Data;
 using MessageBoard.Services;
+using WebApiContrib.IoC.Ninject;
 
 [assembly: WebActivator.PreApplicationStartMethod(typeof(MessageBoard.App_Start.NinjectWebCommon), "Start")]
 [assembly: WebActivator.ApplicationShutdownMethodAttribute(typeof(MessageBoard.App_Start.NinjectWebCommon), "Stop")]
@@ -47,6 +49,9 @@ namespace MessageBoard.App_Start
             kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
             
             RegisterServices(kernel);
+
+            GlobalConfiguration.Configuration.DependencyResolver = new NinjectResolver(kernel);
+
             return kernel;
         }
 
