@@ -349,6 +349,7 @@
     <Content Include="Content\Template\font-awesome\fontawesome-webfont.ttf" />
     <Content Include="Content\Template\font-awesome\fontawesome-webfont.woff" />
     <None Include="Scripts\jquery-2.0.3.intellisense.js" />
+    <Content Include="js\home-index.js" />
     <Content Include="Scripts\angular-bootstrap-prettify.js" />
     <Content Include="Scripts\angular-bootstrap-prettify.min.js" />
     <Content Include="Scripts\angular-bootstrap.js" />
